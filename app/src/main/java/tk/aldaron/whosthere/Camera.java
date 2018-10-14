@@ -1,6 +1,7 @@
 package tk.aldaron.whosthere;
 
 import android.content.Context;
+import android.graphics.ImageFormat;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraDevice;
@@ -45,6 +46,19 @@ public class Camera {
 
         if (cameraIds.length < 1) {
             Log.e(TAG, "No cameras found");
+        }
+
+        String id = cameraIds[0];
+        Log.d(TAG, "Using Camera ID: " + id);
+
+        // initialize the image processor
+        mImageReader = ImageReader.newInstance(IMAGE_WIDTH, IMAGE_HEIGHT,ImageFormat.JPEG, MAX_IMAGES);
+
+        // open  the camera source
+        try {
+            manager.openCamera(id, mStateCallback, handler);
+        } catch (CameraAccessException e) {
+            Log.d(TAG, "Camera Access Exception", e);
         }
     }
 }
