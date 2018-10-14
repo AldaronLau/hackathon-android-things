@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "tk.aldaron.whosthere"
-        minSdkVersion 24
+        minSdkVersion 27
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -24,5 +24,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.google.firebase:firebase-storage:16.0.3'
+    implementation 'com.google.android.things.contrib:driver-button:1.0'
+
+    implementation 'com.google.apis:google-api-services-vision:v1-rev22-1.22.0'
+    implementation 'com.google.api-client:google-api-client-android:1.22.0' exclude module: 'httpclient'
+    implementation 'com.google.http-client:google-http-client-gson:1.22.0' exclude module: 'httpclient'
     compileOnly 'com.google.android.things:androidthings:+'
 }
