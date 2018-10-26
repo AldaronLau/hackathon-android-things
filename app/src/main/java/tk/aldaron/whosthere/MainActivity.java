@@ -1,7 +1,11 @@
 package tk.aldaron.whosthere;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 /**
  * Skeleton of an Android Things activity.
@@ -24,10 +28,53 @@ import android.os.Bundle;
  *
  */
 public class MainActivity extends Activity {
+    private static final String TAG = "MainActivity";
+
+    /** Camera image capture size */
+    private static final int PREVIEW_IMAGE_WIDTH = 640;
+    private static final int PREVIEW_IMAGE_HEIGHT = 480;
+
+    private CameraHandler mCameraHandler;
+    private Button mCameraButton;
+    /**
+     * Initialize the camera
+     */
+    private void initCamera() {
+        mCameraHandler = CameraHandler.getInstance();
+    }
+
+    /**
+     * Clean up the resources used by the camera
+     */
+    private void closeCamera() {
+        mCameraHandler.shutDown();
+    }
+
+    /**
+     * load the image that will be used in the classification process
+     */
+    private void loadPhoto() {
+        mCameraHandler.takePicture();
+        Bitmap bitmap = mCameraHandler.
+        onPhotoReady();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mCameraButton = findViewById(R.id.button);
+
+        mCameraButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 mCameraHandler.takePicture();
+             }
+         }
+
+        );
+        initCamera();
     }
+
 }
